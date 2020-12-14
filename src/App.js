@@ -9,8 +9,11 @@ import {SafeAreaView, View, Text} from 'react-native';
 
 function App() {
   return (
-    // ...
-    null
+    <SafeAreaView>
+      <View>
+        <Text>Hello Message!</Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
