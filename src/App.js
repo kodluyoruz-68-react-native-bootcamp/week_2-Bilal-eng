@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaView, View, FlatList, Text, StyleSheet} from 'react-native';
 import Header from './components/header';
+import TodoItem from './components/todoItem';
 
 /**
  * TextInput: testID="input" (component which is user types the todo text)
@@ -13,23 +14,26 @@ export default App = () => {
     {text: 'Buy coffe', id: '1'},
     {text: 'Do homework', id: '2'},
     {text: 'Play games', id: '3'},
+    {text: 'Play games', id: '4'},
+    {text: 'Play games', id: '5'},
   ]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         {/* Start Header component */}
-        <View style={{flex: 1}}>
-          <Header />
+        <View>
+          <Header todosCount={todos.length} />
         </View>
         {/* End Header component */}
         <View style={styles.content}>
           <View style={styles.list}>
-            {/* <FlatList
+            <FlatList
               data={todos}
-              renderItem={({item}) => <Text>{item.text}</Text>}
-            /> */}
+              renderItem={({item}) => <TodoItem item={item} />}
+            />
           </View>
+          <View style={{flex: 1}}></View>
         </View>
       </View>
     </SafeAreaView>
@@ -43,10 +47,10 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    margin: 20,
+    marginStart: 16,
+    marginEnd: 16,
   },
   list: {
     flex: 1,
-    marginTop: 20,
   },
 });

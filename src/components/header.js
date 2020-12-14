@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export default Header = () => {
+export default Header = ({todosCount}) => {
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>TODOS</Text>
-      <Text style={styles.headerText}>0</Text>
+      <Text style={styles.headerText}>{todosCount}</Text>
     </View>
   );
 };
@@ -19,5 +19,6 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 20,
+    color: 'black',
   },
 });
