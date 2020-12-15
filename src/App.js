@@ -5,7 +5,7 @@ import {
   FlatList,
   Text,
   StyleSheet,
-  ScrollView,
+  Alert,
 } from 'react-native';
 import Header from './components/header';
 import TodoItem from './components/todoItem';
@@ -22,16 +22,19 @@ export default App = () => {
     {text: 'Buy coffe', id: '1'},
     {text: 'Do homework', id: '2'},
     {text: 'Play games', id: '3'},
-    {text: 'Play games', id: '4'},
-    {text: 'Play games', id: '5'},
-    {text: 'Play games', id: '6'},
-    {text: 'Play games', id: '7'},
-    {text: 'Play games', id: '8'},
-    {text: 'Play games', id: '9'},
-    {text: 'Play games', id: '10'},
-    {text: 'Play games', id: '11'},
-    {text: 'Play games', id: '12'},
   ]);
+
+  const submitHandler = (text) => {
+    if (text.length !== 0) {
+      setTodos((prevTodos) => {
+        return [{text: text, id: Math.random().toString()}, ...prevTodos];
+      });
+    } else {
+      Alert.alert('OOPS!', "Todo's text mustn't be empty", [
+        {text: 'Ok', onPress: () => console.log('Alert closed')},
+      ]);
+    }
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -49,7 +52,7 @@ export default App = () => {
             />
           </View>
           <View style={styles.todoForm}>
-            <TodoForm />
+            <TodoForm submitHandler={submitHandler} />
           </View>
         </View>
       </View>
