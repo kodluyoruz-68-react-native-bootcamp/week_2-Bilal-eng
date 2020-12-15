@@ -24,6 +24,7 @@ export default App = () => {
     {text: 'Play games', id: '3'},
   ]);
 
+  //==== Start submit button function ====
   const submitHandler = (text) => {
     if (text.length !== 0) {
       setTodos((prevTodos) => {
@@ -35,6 +36,15 @@ export default App = () => {
       ]);
     }
   };
+  //==== End submit button function ====
+
+  //==== Start list item on long press function ====
+  const onLongPressHandler = (id) => {
+    setTodos((todos) => {
+      return todos.filter((todo) => todo.id != id);
+    });
+  };
+  //==== End list item on long press ====
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -44,16 +54,24 @@ export default App = () => {
           <Header todosCount={todos.length} />
         </View>
         {/* End Header component */}
+
         <View style={styles.content}>
+          {/* Start FlatList content */}
           <View style={styles.list}>
             <FlatList
               data={todos}
-              renderItem={({item}) => <TodoItem item={item} />}
+              renderItem={({item}) => (
+                <TodoItem item={item} onLongPressHandler={onLongPressHandler} />
+              )}
             />
           </View>
+          {/* End FlatList content */}
+
+          {/* Start TodoForm component */}
           <View style={styles.todoForm}>
             <TodoForm submitHandler={submitHandler} />
           </View>
+          {/* End TodoForm component */}
         </View>
       </View>
     </SafeAreaView>

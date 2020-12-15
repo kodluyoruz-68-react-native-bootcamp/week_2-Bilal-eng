@@ -1,9 +1,11 @@
 import React from 'react';
 import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-export default TodoItem = ({item}) => {
+export default TodoItem = ({item, onLongPressHandler}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onLongPress={() => onLongPressHandler(item.id)}>
       <Text>{item.text}</Text>
     </TouchableOpacity>
   );
