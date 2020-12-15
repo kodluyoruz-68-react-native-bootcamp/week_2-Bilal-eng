@@ -1,7 +1,15 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View, FlatList, Text, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import Header from './components/header';
 import TodoItem from './components/todoItem';
+import TodoForm from './components/todoForm';
 
 /**
  * TextInput: testID="input" (component which is user types the todo text)
@@ -16,6 +24,13 @@ export default App = () => {
     {text: 'Play games', id: '3'},
     {text: 'Play games', id: '4'},
     {text: 'Play games', id: '5'},
+    {text: 'Play games', id: '6'},
+    {text: 'Play games', id: '7'},
+    {text: 'Play games', id: '8'},
+    {text: 'Play games', id: '9'},
+    {text: 'Play games', id: '10'},
+    {text: 'Play games', id: '11'},
+    {text: 'Play games', id: '12'},
   ]);
 
   return (
@@ -33,7 +48,9 @@ export default App = () => {
               renderItem={({item}) => <TodoItem item={item} />}
             />
           </View>
-          <View style={{flex: 1}}></View>
+          <View style={styles.todoForm}>
+            <TodoForm />
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -51,6 +68,10 @@ const styles = StyleSheet.create({
     marginEnd: 16,
   },
   list: {
-    flex: 1,
+    flex: 0.85,
+    marginBottom: 12,
+  },
+  todoForm: {
+    flex: 0.15,
   },
 });
