@@ -24,6 +24,8 @@ export default App = () => {
     {text: 'Play games', id: '3'},
   ]);
 
+  const [tempTodos, setTempTodos] = useState([]);
+
   //==== Start submit button function ====
   const submitHandler = (text) => {
     if (text.length !== 0) {
@@ -46,12 +48,37 @@ export default App = () => {
   };
   //==== End list item on long press ====
 
+  //==== Start list item on press function ====
+  const onPressHandler = (id, ispress) => {
+    // console.log(id);
+    // if (ispress) {
+    //   setTempTodos((tempTodos) => {
+    //     return [{text: id.text, id: id}, ...tempTodos];
+    //   });
+    // } else {
+    //   setTempTodos((todos) => {
+    //     return todos.filter((todo) => todo.id != id);
+    //   });
+    // }
+
+    console.log(tempTodos.length);
+    // if (!ispress) {
+    //   todos.length - 1;
+    // } else {
+    //   todos.length + 1;
+    // }
+    // setTodos((todos) => {
+    //   return todos.filter((todo) => todo.id != id);
+    // });
+  };
+  //==== End list item on long press ====
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         {/* Start Header component */}
         <View>
-          <Header todosCount={todos.length} />
+          <Header todosCount={todos.length - tempTodos.length} />
         </View>
         {/* End Header component */}
 
@@ -61,7 +88,11 @@ export default App = () => {
             <FlatList
               data={todos}
               renderItem={({item}) => (
-                <TodoItem item={item} onLongPressHandler={onLongPressHandler} />
+                <TodoItem
+                  item={item}
+                  onLongPressHandler={onLongPressHandler}
+                  onPressHandler={onPressHandler}
+                />
               )}
             />
           </View>
