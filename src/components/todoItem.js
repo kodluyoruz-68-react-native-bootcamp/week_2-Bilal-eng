@@ -1,31 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
 
-export default TodoItem = ({item, onLongPressHandler, onPressHandler}) => {
-  const [ispress, setIsPress] = useState(true);
-
-  const changeColor = () => {
-    if (ispress) {
-      setIsPress(false);
-    } else {
-      setIsPress(true);
-    }
-  };
-
+const TodoItem = ({item, onLongPressHandler, onPressHandler}) => {
   return (
     <TouchableOpacity
-      onLongPress={() => onLongPressHandler(item.id, ispress)}
+      onLongPress={() => onLongPressHandler(item.id)}
       onPress={() => {
-        console.log(ispress);
-        onPressHandler(item.id, ispress);
-        changeColor();
+        onPressHandler(item);
       }}>
-      <View style={ispress ? styles.beforePressed : styles.afterPressed}>
+      <View style={item.isDone ? styles.afterPressed : styles.beforePressed}>
         <Text
           style={
-            ispress
-              ? styles.textStyleBeforePressed
-              : styles.textStyleAfterPressed
+            item.isDone
+              ? styles.textStyleAfterPressed
+              : styles.textStyleBeforePressed
           }>
           {item.text}
         </Text>
@@ -64,3 +52,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+export default TodoItem;

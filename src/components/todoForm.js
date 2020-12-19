@@ -1,7 +1,13 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Button} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 
-export default TodoForm = ({submitHandler}) => {
+const TodoForm = ({submitHandler}) => {
   const [text, settext] = useState('');
 
   const onChangeTextHandler = (val) => {
@@ -12,6 +18,7 @@ export default TodoForm = ({submitHandler}) => {
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
+          testID="input"
           style={{fontSize: 16}}
           placeholder="Type something to do..."
           onChangeText={onChangeTextHandler}
@@ -19,15 +26,16 @@ export default TodoForm = ({submitHandler}) => {
           value={text}
         />
       </View>
-      <View style={styles.submitButton}>
-        <Button
-          color="black"
-          title="ADD TODO"
+      <View style={styles.viewStyle}>
+        <TouchableOpacity
+          testID="button"
+          style={styles.submitButton}
           onPress={() => {
             submitHandler(text.trim());
             settext('');
-          }}
-        />
+          }}>
+          <Text style={styles.textStyle}>ADD TODO</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -48,8 +56,17 @@ const styles = StyleSheet.create({
     height: 40,
   },
   submitButton: {
-    backgroundColor: '#DDD',
+    padding: 10,
     borderRadius: 5,
-    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  viewStyle: {
+    backgroundColor: '#DDD',
+  },
+  textStyle: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
+
+export default TodoForm;

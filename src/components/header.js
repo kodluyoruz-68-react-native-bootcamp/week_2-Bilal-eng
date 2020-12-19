@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export default Header = ({todosCount}) => {
+const Header = ({todosCount}) => {
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>TODOS</Text>
@@ -12,6 +12,7 @@ export default Header = ({todosCount}) => {
 
 const styles = StyleSheet.create({
   header: {
+    marginTop: 10,
     backgroundColor: '#00e676',
     padding: 10,
     flexDirection: 'row',
@@ -26,3 +27,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default Header;

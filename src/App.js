@@ -1,15 +1,8 @@
 import React, {useState} from 'react';
-import {
-  SafeAreaView,
-  View,
-  FlatList,
-  Text,
-  StyleSheet,
-  Alert,
-} from 'react-native';
-import Header from './components/header';
-import TodoItem from './components/todoItem';
-import TodoForm from './components/todoForm';
+import {SafeAreaView, View, FlatList, StyleSheet, Alert} from 'react-native';
+import Header from './components/Header';
+import TodoItem from './components/TodoItem';
+import TodoForm from './components/TodoForm';
 
 /**
  * TextInput: testID="input" (component which is user types the todo text)
@@ -17,68 +10,66 @@ import TodoForm from './components/todoForm';
  * FlatList: testID="list" (list of todo)
  */
 
-export default App = () => {
-  const [todos, setTodos] = useState([
-    {text: 'Buy coffe', id: '1'},
-    {text: 'Do homework', id: '2'},
-    {text: 'Play games', id: '3'},
-  ]);
-
-  const [tempTodos, setTempTodos] = useState([]);
+const App = () => {
+  const [todos, setTodos] = useState([]);
 
   //==== Start submit button function ====
   const submitHandler = (text) => {
     if (text.length !== 0) {
       setTodos((prevTodos) => {
-        return [{text: text, id: Math.random().toString()}, ...prevTodos];
+        return [
+          {text: text, id: Math.random().toString(), isDone: false},
+          ...prevTodos,
+        ];
       });
     } else {
-      Alert.alert('OOPS!', "Todo's text mustn't be empty", [
-        {text: 'Ok', onPress: () => console.log('Alert closed')},
-      ]);
+      Alert.alert(
+        'OOPS!',
+        "Todo shouldn't be able to add to list if input is empty",
+        [{text: 'Ok', onPress: () => console.log('Alert closed')}],
+      );
     }
   };
   //==== End submit button function ====
 
   //==== Start list item on long press function ====
   const onLongPressHandler = (id) => {
-    setTodos((todos) => {
-      return todos.filter((todo) => todo.id != id);
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== id);
     });
   };
   //==== End list item on long press ====
 
   //==== Start list item on press function ====
-  const onPressHandler = (id, ispress) => {
-    // console.log(id);
-    // if (ispress) {
-    //   setTempTodos((tempTodos) => {
-    //     return [{text: id.text, id: id}, ...tempTodos];
-    //   });
-    // } else {
-    //   setTempTodos((todos) => {
-    //     return todos.filter((todo) => todo.id != id);
-    //   });
-    // }
-
-    console.log(tempTodos.length);
-    // if (!ispress) {
-    //   todos.length - 1;
-    // } else {
-    //   todos.length + 1;
-    // }
-    // setTodos((todos) => {
-    //   return todos.filter((todo) => todo.id != id);
-    // });
+  const onPressHandler = (item) => {
+    if (item.isDone) {
+      setTodos((prevTodos) => {
+        return prevTodos.map((el) =>
+          el.id === item.id ? {...el, isDone: false} : el,
+        );
+      });
+    } else {
+      setTodos((prevTodos) => {
+        return prevTodos.map((el) =>
+          el.id === item.id ? {...el, isDone: true} : el,
+        );
+      });
+    }
   };
-  //==== End list item on long press ====
+  //==== End list item on press function ====
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         {/* Start Header component */}
         <View>
-          <Header todosCount={todos.length - tempTodos.length} />
+          <Header
+            todosCount={
+              todos.filter((item) => {
+                return !item.isDone;
+              }).length
+            }
+          />
         </View>
         {/* End Header component */}
 
@@ -86,6 +77,7 @@ export default App = () => {
           {/* Start FlatList content */}
           <View style={styles.list}>
             <FlatList
+              testID="list"
               data={todos}
               renderItem={({item}) => (
                 <TodoItem
@@ -120,10 +112,12 @@ const styles = StyleSheet.create({
     marginEnd: 16,
   },
   list: {
-    flex: 0.85,
+    flex: 0.75,
     marginBottom: 12,
   },
   todoForm: {
-    flex: 0.15,
+    flex: 0.25,
   },
 });
+
+export default App;
