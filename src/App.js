@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {SafeAreaView, View, FlatList, StyleSheet, Alert} from 'react-native';
 import Header from './components/header';
-import TodoItem from './components/TodoItem';
-import TodoForm from './components/TodoForm';
+import TodoItem from './components/todoItem';
+import TodoForm from './components/todoForm';
 
 /**
  * TextInput: testID="input" (component which is user types the todo text)
