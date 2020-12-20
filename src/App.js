@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {SafeAreaView, View, FlatList, StyleSheet, Alert} from 'react-native';
-import Header from './components/Header';
+import Header from './components/header';
 import TodoItem from './components/TodoItem';
 import TodoForm from './components/TodoForm';
 
