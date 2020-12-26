@@ -13,6 +13,18 @@ import TodoForm from './components/todoForm';
 const App = () => {
   const [todos, setTodos] = useState([]);
 
+  //==== Start render todo list function ====
+  const renderTodoList = ({item}) => {
+    return (
+      <TodoItem
+        item={item}
+        onLongPressHandler={onLongPressHandler}
+        onPressHandler={onPressHandler}
+      />
+    );
+  };
+  //==== End render todo list function ====
+
   //==== Start submit button function ====
   const submitHandler = (text) => {
     if (text.length !== 0) {
@@ -79,13 +91,7 @@ const App = () => {
             <FlatList
               testID="list"
               data={todos}
-              renderItem={({item}) => (
-                <TodoItem
-                  item={item}
-                  onLongPressHandler={onLongPressHandler}
-                  onPressHandler={onPressHandler}
-                />
-              )}
+              renderItem={(item) => renderTodoList(item)}
             />
           </View>
           {/* End FlatList content */}
